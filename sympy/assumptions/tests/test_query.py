@@ -2193,3 +2193,6 @@ def test_autosimp_fails():
     assert ask(Q.imaginary(0**(-I))) is False
     assert ask(Q.real(0**I)) is False
     assert ask(Q.real(0**(-I))) is False
+
+def test_relational():
+    assert ask(Q.positive(x - 3), Q.positive(x - 4)) is True

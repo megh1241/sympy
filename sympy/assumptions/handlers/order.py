@@ -6,6 +6,7 @@ from __future__ import print_function, division
 from sympy.assumptions import Q, ask
 from sympy.assumptions.handlers import CommonHandler
 from sympy.core.logic import fuzzy_not, fuzzy_and, fuzzy_or
+from sympy.logic.boolalg import conjuncts
 
 
 class AskNegativeHandler(CommonHandler):
@@ -222,7 +223,10 @@ class AskPositiveHandler(CommonHandler):
 
     @staticmethod
     def Expr(expr, assumptions):
-        return expr.is_positive
+        if expr.is_positive == None:
+            for assump in conjuncts(assumptions):
+                if assump.func == Q.positive and expr - assump.args[0] > 0:
+                    return True
 
     @staticmethod
     def _number(expr, assumptions):
