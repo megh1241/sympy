@@ -225,8 +225,13 @@ class AskPositiveHandler(CommonHandler):
     def Expr(expr, assumptions):
         if expr.is_positive == None:
             for assump in conjuncts(assumptions):
-                if assump.func == Q.positive and expr - assump.args[0] > 0:
-                    return True
+                if assump.func == Q.positive:
+                    if ask(Q.positive(expr-assump.args[0])):
+                        return True
+                    else:
+                        return None
+        return expr.is_positive
+
 
     @staticmethod
     def _number(expr, assumptions):
