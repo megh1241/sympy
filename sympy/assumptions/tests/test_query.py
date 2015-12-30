@@ -2196,3 +2196,4 @@ def test_autosimp_fails():
 
 def test_relational():
     assert ask(Q.positive(x - 3), Q.positive(x - 4)) is True
+    assert ask(Q.negative(x - 4), Q.negative(x - 3)) is True

@@ -28,6 +28,13 @@ class AskNegativeHandler(CommonHandler):
 
     @staticmethod
     def Expr(expr, assumptions):
+        for assump in conjuncts(assumptions):
+            if assump.func == Q.negative:
+                if ask(Q.negative(expr-assump.args[0])):
+                    return True
+                else:
+                    return None
+
         return expr.is_negative
 
     @staticmethod
